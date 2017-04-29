@@ -17,6 +17,13 @@ public class GuestBookEntry {
     @Column(name = "id")
     private Long id;
 
+//    protected GuestBookEntry(){}
+
+//    public GuestBookEntry(String name, String comment) {
+//        this.setName(name);
+//        this.setComment(comment);
+//    }
+
     @NotEmpty
     private String name;
 

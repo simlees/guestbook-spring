@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -27,6 +28,21 @@ public class HelloController {
 	public String displayGuestbook( Model model ) {
 
 		model.addAttribute(ENTRIES_KEY, guestBookService.findAll());
+		model.addAttribute(FORM_KEY, new GuestBookEntry());
+
+		return GUESTBOOK_FORM;
+	}
+
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String displayGuestbookItem(HttpServletRequest request, Model model ) {
+
+		String item = request.getParameter("item");
+
+		if(item == null){
+			return "redirect:/";
+		}
+
+		model.addAttribute(ENTRIES_KEY, guestBookService.findByName(item));
 		model.addAttribute(FORM_KEY, new GuestBookEntry());
 
 		return GUESTBOOK_FORM;
